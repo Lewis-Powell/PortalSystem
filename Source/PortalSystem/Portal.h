@@ -35,7 +35,7 @@ private:
 		UStaticMeshComponent* ProjectileMesh;
 
 	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* OuterMesh;
+		UStaticMeshComponent* Mesh;
 
 	//UPROPERTY(EditAnywhere)
 	//	UStaticMeshComponent* Plane;

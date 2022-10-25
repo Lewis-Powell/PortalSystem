@@ -16,8 +16,8 @@ APortal::APortal()
 	//OuterMesh->AttachToComponent(m_RootComponent,);
 
 
-	OuterMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	RootComponent = OuterMesh;
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	RootComponent = Mesh;
 }
 
 // Called when the game starts or when spawned
