@@ -1,6 +1,6 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "PortalSystem.h"
+#include "PortalSystem/PortalSystem.h"
 #include "TP_FirstPerson.h"
 #include "Modules/ModuleManager.h"
 
