@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Portal.generated.h"
 
+
 UCLASS()
 class PORTALSYSTEM_API APortal : public AActor
 {
@@ -31,16 +32,16 @@ public:
 private:
 
 	//UProperty Variables
-	UPROPERTY(EditDefaultsOnly, Category = "Physical Components") // meta = (AllowPrivateAccess = "true")
-		UStaticMeshComponent* ProjectileMesh;
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* OuterMesh;
 
-	//UPROPERTY(EditAnywhere)
-	//	UStaticMeshComponent* Plane;
 	UPROPERTY(EditAnywhere)
-		USceneComponent* m_RootComponent;
+		UStaticMeshComponent* PortalPlane;
+	
+	UPROPERTY(EditAnywhere)
+		class USceneCaptureComponent2D* CapturePortal;
+
 
 
 };

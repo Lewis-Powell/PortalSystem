@@ -13,3 +13,8 @@ Saved
 *.xcodeproj
 *.xcworkspace
 Build/*
+Content/StarterContent/Architecture*
+Content/StarterContent/Audio*
+Content/StarterContent/Blueprints*
+Content/StarterContent/HDRI*
+Content/StarterContent/Maps*

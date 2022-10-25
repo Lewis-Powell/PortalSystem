@@ -2,6 +2,7 @@
 
 
 #include "Portal.h"
+#include "Components/SceneCaptureComponent2D.h"
 
 // Sets default values
 APortal::APortal()
@@ -18,6 +19,9 @@ APortal::APortal()
 
 	OuterMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = OuterMesh;
+	PortalPlane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Portal"));
+	CapturePortal = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("SceneCapture"));
+
 }
 
 // Called when the game starts or when spawned
