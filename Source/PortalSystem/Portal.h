@@ -42,6 +42,8 @@ private:
 	UPROPERTY(EditAnywhere)
 		class USceneCaptureComponent2D* CapturePortal;
 
+	UPROPERTY(EditAnywhere)
+		class UTextureRenderTarget2D* Portal_RT;
 
 
 };
