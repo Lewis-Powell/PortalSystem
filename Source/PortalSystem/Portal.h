@@ -28,6 +28,13 @@ public:
 	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	//	UStaticMeshComponent* OuterMesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UTextureRenderTarget2D* Portal_RT;
+
+
+protected:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+		UStaticMeshComponent* PortalPlane;
 
 private:
 
@@ -35,15 +42,11 @@ private:
 
 	UPROPERTY(EditAnywhere)
 		UStaticMeshComponent* OuterMesh;
-
-	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* PortalPlane;
 	
 	UPROPERTY(EditAnywhere)
 		class USceneCaptureComponent2D* CapturePortal;
 
-	UPROPERTY(EditAnywhere)
-		class UTextureRenderTarget2D* Portal_RT;
+
 
 
 };

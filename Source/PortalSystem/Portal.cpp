@@ -4,7 +4,7 @@
 #include "Portal.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/TextureRenderTarget2D.h"
-//#include "../../../../../../../Epic/UE5/UE_5.0/Engine/Plugins/Runtime/HairStrands/Source/HairStrandsCore/Private/GroomTextureBuilder.cpp"
+#include "Slate/SceneViewport.h"
 
 // Sets default values
 APortal::APortal()
@@ -43,8 +43,8 @@ APortal::APortal()
 void APortal::BeginPlay()
 {
 	Super::BeginPlay();
-	//const FSceneViewport* GameViewport = GEngine->GameViewport->GetGameViewport();
-	//FIntPoint ScreenshotSize = GameViewport->GetSizeXY();
+	const FSceneViewport* GameViewport = GEngine->GameViewport->GetGameViewport();
+	FIntPoint ScreenshotSize = GameViewport->GetSizeXY();
 	EPixelFormat PixelFormat = PF_A2B10G10R10;
 	bool bIsSRGB = false;
 	if (!Portal_RT)
@@ -52,8 +52,9 @@ void APortal::BeginPlay()
 		Portal_RT = NewObject<UTextureRenderTarget2D>(this);
 	}
 	Portal_RT->ClearColor = FLinearColor::Transparent;
-	Portal_RT->InitCustomFormat(1920, 1080, PixelFormat, true); //, PixelFormat, !bIsSRGB
+	Portal_RT->InitCustomFormat(ScreenshotSize.X, ScreenshotSize.Y, PixelFormat, true); //, PixelFormat, !bIsSRGB
 	CapturePortal->TextureTarget = Portal_RT;
+	
 }
 
 // Called every frame
