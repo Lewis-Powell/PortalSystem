@@ -36,15 +36,21 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
 		UStaticMeshComponent* PortalPlane;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class USceneCaptureComponent2D* CapturePortal;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		UStaticMeshComponent* OuterMesh;
+
 private:
 
 	//UProperty Variables
 
-	UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* OuterMesh;
+	/*UPROPERTY(EditAnywhere)
+		UStaticMeshComponent* OuterMesh;*/
 	
-	UPROPERTY(EditAnywhere)
-		class USceneCaptureComponent2D* CapturePortal;
+	/*UPROPERTY(EditAnywhere)
+		class USceneCaptureComponent2D* CapturePortal;*/
 
 
 

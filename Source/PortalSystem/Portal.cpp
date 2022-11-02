@@ -55,7 +55,7 @@ void APortal::BeginPlay()
 	}
 	Portal_RT->ClearColor; //= FLinearColor::Red;//Transparent
 	Portal_RT->InitCustomFormat(ScreenshotSize.X, ScreenshotSize.Y, PixelFormat, true); //, PixelFormat, !bIsSRGB
-	CapturePortal->TextureTarget = Portal_RT;
+	//CapturePortal->TextureTarget = Portal_RT;
 	
 }
 
