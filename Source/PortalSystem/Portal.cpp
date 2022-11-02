@@ -22,7 +22,9 @@ APortal::APortal()
 	OuterMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = OuterMesh;
 	PortalPlane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Portal"));
+	PortalPlane->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	CapturePortal = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("SceneCapture"));
+	CapturePortal->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	//Portal_RT = new UTextureRenderTarget2D();
 	//Make resolution of the screen.
 	//Portal_RT->SizeX = 1920;
@@ -45,13 +47,13 @@ void APortal::BeginPlay()
 	Super::BeginPlay();
 	const FSceneViewport* GameViewport = GEngine->GameViewport->GetGameViewport();
 	FIntPoint ScreenshotSize = GameViewport->GetSizeXY();
-	EPixelFormat PixelFormat = PF_A2B10G10R10;
+	EPixelFormat PixelFormat = PF_FloatRGBA;//PF_A2B10G10R10
 	bool bIsSRGB = false;
 	if (!Portal_RT)
 	{
 		Portal_RT = NewObject<UTextureRenderTarget2D>(this);
 	}
-	Portal_RT->ClearColor = FLinearColor::Transparent;
+	Portal_RT->ClearColor; //= FLinearColor::Red;//Transparent
 	Portal_RT->InitCustomFormat(ScreenshotSize.X, ScreenshotSize.Y, PixelFormat, true); //, PixelFormat, !bIsSRGB
 	CapturePortal->TextureTarget = Portal_RT;
 	
