@@ -24,13 +24,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintImplementableEvent)
+		void ConstructedRT();
 
 	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	//	UStaticMeshComponent* OuterMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UTextureRenderTarget2D* Portal_RT;
-
 
 protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
