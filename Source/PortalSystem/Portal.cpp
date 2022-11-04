@@ -50,11 +50,15 @@ void APortal::BeginPlay()
 	{
 		Portal_RT = NewObject<UTextureRenderTarget2D>(this);
 	}
-	Portal_RT->ClearColor = FLinearColor::Red;//Transparent
+	Portal_RT->ClearColor = FLinearColor::Transparent;//Transparent
 	Portal_RT->InitAutoFormat(500, 1000);
 	CapturePortal->TextureTarget = Portal_RT;
 
-	ConstructedRT();
+	if (IsValid(PortalOtherFucker) && IsValid(PortalOtherFucker->Portal_RT))
+	{
+		ConstructedRT(PortalOtherFucker->Portal_RT);
+		Created = true;
+	}
 }
 
 // Called every frame
@@ -62,4 +66,9 @@ void APortal::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (IsValid(PortalOtherFucker) && !Created)
+	{
+		ConstructedRT(PortalOtherFucker->Portal_RT);
+		Created = true;
+	}
 }
