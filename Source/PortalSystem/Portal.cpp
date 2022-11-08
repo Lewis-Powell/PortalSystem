@@ -50,8 +50,8 @@ void APortal::BeginPlay()
 	{
 		Portal_RT = NewObject<UTextureRenderTarget2D>(this);
 	}
-	Portal_RT->ClearColor = FLinearColor::Transparent;//Transparent
-	Portal_RT->InitAutoFormat(500, 1000);
+	Portal_RT->ClearColor = FLinearColor::Red;//Transparent
+	Portal_RT->InitAutoFormat(1000, 2000);
 	CapturePortal->TextureTarget = Portal_RT;
 
 	if (IsValid(PortalOtherFucker) && IsValid(PortalOtherFucker->Portal_RT))
