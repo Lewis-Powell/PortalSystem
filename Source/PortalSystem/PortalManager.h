@@ -35,7 +35,8 @@ private:
 	UPROPERTY()
 		class APortal* PortalRef2;
 
-	UPROPERTY()
+	UPROPERTY(VisibleAnywhere)
 		TArray<class APortal*> Portals;
 
+	int Counter;
 };

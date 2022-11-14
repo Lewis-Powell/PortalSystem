@@ -25,11 +25,14 @@ void APortalManager::PopulatePortalsArray()
 {
 	for (APortal* Portal : TActorRange<APortal>(GetWorld()))
 	{
+		UE_LOG(LogTemp, Warning, TEXT("ForLoop"));
 		if (Portal->Created == true)
 		{
-			return;
+			UE_LOG(LogTemp, Warning, TEXT("Entered Created"));
+			Portals.Add(Portal);
 		}
 	}
+	
 }
 
 
@@ -37,6 +40,12 @@ void APortalManager::PopulatePortalsArray()
 void APortalManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if (Counter == 10)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Counter"));
+		PopulatePortalsArray();
+	}
+	Counter++;
+	
 }
 
