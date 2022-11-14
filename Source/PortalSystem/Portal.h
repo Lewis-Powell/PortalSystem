@@ -30,6 +30,10 @@ public:
 	UFUNCTION(BlueprintImplementableEvent)
 		void ConstructedRT(UTextureRenderTarget2D* Texture);
 
+	UFUNCTION()
+		void SetConnectedPortal(APortal* PortalToConnect);
+	
+	
 	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	//	UStaticMeshComponent* OuterMesh;
 
@@ -38,6 +42,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	APortal* PortalOtherFucker;
+
 
 protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere)
@@ -60,6 +65,7 @@ private:
 		class USceneCaptureComponent2D* CapturePortal;*/
 
 
-
+	UPROPERTY()
+		APortal* PortalConnectedTo;
 
 };

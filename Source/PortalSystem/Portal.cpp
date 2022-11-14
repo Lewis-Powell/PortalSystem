@@ -72,3 +72,12 @@ void APortal::Tick(float DeltaTime)
 		Created = true;
 	}
 }
+
+
+void APortal::SetConnectedPortal(APortal* PortalToConnect)
+{
+	if (PortalToConnect != nullptr)
+	{
+		PortalConnectedTo = PortalToConnect;
+	}
+}
