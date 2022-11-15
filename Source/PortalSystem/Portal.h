@@ -41,7 +41,7 @@ public:
 		class UTextureRenderTarget2D* Portal_RT;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	APortal* PortalOtherFucker;
+	APortal* LinkedPortal;
 
 
 protected:
@@ -68,4 +68,5 @@ private:
 	UPROPERTY()
 		APortal* PortalConnectedTo;
 
+	void AddingPortalToArray();
 };

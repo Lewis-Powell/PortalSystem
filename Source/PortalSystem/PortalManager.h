@@ -19,14 +19,19 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+public:
+	void AddPortal(class APortal*);
+
+	static inline APortalManager* CurrentPortalManager = nullptr;
+	static APortalManager* GetPortalManager();
 
 protected:
-	
+
 	UFUNCTION()
-		void PopulatePortalsArray();
+		void OnPortalDestroyed(AActor* DestroyedActor);
+
+	UFUNCTION(BlueprintCallable)
+		void LinkPortal(APortal* PortalOne, APortal* PortalTwo);
 
 private:
 
@@ -37,6 +42,4 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 		TArray<class APortal*> Portals;
-
-	int Counter;
 };

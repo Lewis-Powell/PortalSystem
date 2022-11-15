@@ -5,6 +5,7 @@
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/TextureRenderTarget2D.h"
 #include "Slate/SceneViewport.h"
+#include <PortalSystem/PortalManager.h>
 
 // Sets default values
 APortal::APortal()
@@ -54,11 +55,14 @@ void APortal::BeginPlay()
 	Portal_RT->InitAutoFormat(1000, 2000);
 	CapturePortal->TextureTarget = Portal_RT;
 
-	if (IsValid(PortalOtherFucker) && IsValid(PortalOtherFucker->Portal_RT))
+	if (IsValid(LinkedPortal) && IsValid(LinkedPortal->Portal_RT))
 	{
-		ConstructedRT(PortalOtherFucker->Portal_RT);
+		ConstructedRT(LinkedPortal->Portal_RT);
 		Created = true;
 	}
+	//Create interface to run add portal to the portal manager.
+
+	AddingPortalToArray();
 }
 
 // Called every frame
@@ -66,9 +70,9 @@ void APortal::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (IsValid(PortalOtherFucker) && !Created)
+	if (IsValid(LinkedPortal) && !Created)
 	{
-		ConstructedRT(PortalOtherFucker->Portal_RT);
+		ConstructedRT(LinkedPortal->Portal_RT);
 		Created = true;
 	}
 }
@@ -80,4 +84,18 @@ void APortal::SetConnectedPortal(APortal* PortalToConnect)
 	{
 		PortalConnectedTo = PortalToConnect;
 	}
+}
+
+
+void APortal::AddingPortalToArray()
+{
+	APortalManager* PortalManager = APortalManager::GetPortalManager();
+
+	if (PortalManager == nullptr)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Portal manager not created before portal init"));
+		return;
+	}
+
+	PortalManager->AddPortal(this);
 }

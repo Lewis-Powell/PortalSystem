@@ -7,6 +7,8 @@
 #include "GameFramework/PlayerController.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Kismet/GameplayStatics.h"
+#include "Animation/AnimInstance.h"
+
 
 // Sets default values for this component's properties
 UTP_WeaponComponent::UTP_WeaponComponent()

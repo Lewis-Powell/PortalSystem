@@ -11,41 +11,40 @@ APortalManager::APortalManager()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	CurrentPortalManager = this;
 }
 
 // Called when the game starts or when spawned
 void APortalManager::BeginPlay()
 {
 	Super::BeginPlay();
-	
-
 }
 
-void APortalManager::PopulatePortalsArray()
+void APortalManager::OnPortalDestroyed(AActor* DestroyedActor)
 {
-	for (APortal* Portal : TActorRange<APortal>(GetWorld()))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("ForLoop"));
-		if (Portal->Created == true)
-		{
-			UE_LOG(LogTemp, Warning, TEXT("Entered Created"));
-			Portals.Add(Portal);
-		}
-	}
-	
+	//UE_LOG(LogTemp, Warning, TEXT("Destroyed"));
+	Portals.Remove((APortal*)DestroyedActor);
 }
 
-
-// Called every frame
-void APortalManager::Tick(float DeltaTime)
+void APortalManager::LinkPortal(APortal* PortalOne, APortal* PortalTwo)
 {
-	Super::Tick(DeltaTime);
-	if (Counter == 10)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Counter"));
-		PopulatePortalsArray();
-	}
-	Counter++;
-	
+	check(PortalOne);
+	check(PortalTwo);
+
+	PortalOne->LinkedPortal = PortalTwo;
 }
 
+void APortalManager::AddPortal(APortal* PortalReference)
+{
+	if (PortalReference != nullptr)
+	{
+		//UE_LOG(LogTemp, Warning, TEXT("Destroyed"));
+		PortalReference->OnDestroyed.AddDynamic(this, &APortalManager::OnPortalDestroyed);
+		Portals.Add(PortalReference);
+	}
+}
+
+APortalManager* APortalManager::GetPortalManager()
+{
+	return CurrentPortalManager;
+}
