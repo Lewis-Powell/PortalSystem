@@ -26,13 +26,23 @@ void APortalManager::OnPortalDestroyed(AActor* DestroyedActor)
 	Portals.Remove((APortal*)DestroyedActor);
 }
 
-void APortalManager::LinkPortal(APortal* PortalOne, APortal* PortalTwo)
+void APortalManager::LinkPortalBoth(APortal* PortalOne, APortal* PortalTwo)
 {
 	check(PortalOne);
 	check(PortalTwo);
 
 	PortalOne->LinkedPortal = PortalTwo;
+	PortalTwo->LinkedPortal = PortalOne;
 }
+
+void APortalManager::LinkPortal(APortal* PortalOne, APortal* PortalTwo)
+{
+	check(PortalOne);
+	check(PortalTwo);
+
+	PortalTwo->LinkedPortal = PortalOne;
+}
+
 
 void APortalManager::AddPortal(APortal* PortalReference)
 {

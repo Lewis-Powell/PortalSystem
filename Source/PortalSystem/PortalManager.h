@@ -32,6 +32,8 @@ protected:
 
 	UFUNCTION(BlueprintCallable)
 		void LinkPortal(APortal* PortalOne, APortal* PortalTwo);
+	UFUNCTION(BlueprintCallable)
+		void LinkPortalBoth(APortal* PortalOne, APortal* PortalTwo);
 
 private:
 
