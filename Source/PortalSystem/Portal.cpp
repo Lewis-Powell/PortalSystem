@@ -4,8 +4,11 @@
 #include "Portal.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/TextureRenderTarget2D.h"
+#include "Components/BoxComponent.h"
 #include "Slate/SceneViewport.h"
 #include <PortalSystem/PortalManager.h>
+
+#define PORTAL_COOLDOWN 0.01
 
 // Sets default values
 APortal::APortal()
@@ -22,10 +25,16 @@ APortal::APortal()
 
 	OuterMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = OuterMesh;
+	TeleportPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Teleport Point"));
+	TeleportPoint->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	PortalPlane = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Portal"));
 	PortalPlane->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 	CapturePortal = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("SceneCapture"));
 	CapturePortal->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+	m_BoxCollider = CreateDefaultSubobject<UBoxComponent>(TEXT("CollisonBox"));
+	m_BoxCollider->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
+
+
 	//Portal_RT = new UTextureRenderTarget2D();
 	//Make resolution of the screen.
 	//Portal_RT->SizeX = 1920;
@@ -62,6 +71,7 @@ void APortal::BeginPlay()
 	}
 	//Create interface to run add portal to the portal manager.
 
+	m_BoxCollider->OnComponentBeginOverlap.AddDynamic(this, &APortal::OnCollision);
 	AddingPortalToArray();
 }
 
@@ -83,6 +93,64 @@ void APortal::SetConnectedPortal(APortal* PortalToConnect)
 	if (PortalToConnect != nullptr)
 	{
 		PortalConnectedTo = PortalToConnect;
+	}
+}
+
+void APortal::OnCollision(UPrimitiveComponent* OverlappedComponent,
+	AActor* OtherActor,
+	UPrimitiveComponent* OtherComp,
+	int32 OtherBodyIndex,
+	bool bFromSweep,
+	const FHitResult& SweepResult)
+{
+	if (IsValid(LinkedPortal))
+	{
+		if (LinkedPortal->Cooldown.Contains(OtherActor))
+		{
+			float time = LinkedPortal->Cooldown[OtherActor];
+			UE_LOG(LogTemp, Log, TEXT("1: %f"), time);
+
+			if (time >= GetWorld()->GetTimeSeconds())
+			{
+				UE_LOG(LogTemp, Log, TEXT("2: failed"));
+				return; 
+			}
+
+			float portalTime = GetWorld()->GetTimeSeconds() + PORTAL_COOLDOWN;
+			LinkedPortal->Cooldown[OtherActor] = portalTime;
+			
+			if (Cooldown.Contains(OtherActor))
+				Cooldown[OtherActor] = portalTime;
+			else
+				Cooldown.Add(OtherActor, portalTime);
+
+			UE_LOG(LogTemp, Log, TEXT("5: Adding time (%f) %f"), portalTime, GetWorld()->GetTimeSeconds());
+		}
+		else 
+		{
+			float portalTime = GetWorld()->GetTimeSeconds() + PORTAL_COOLDOWN;
+			LinkedPortal->Cooldown.Add(OtherActor, portalTime);
+
+			if (Cooldown.Contains(OtherActor))
+			{
+				float time = Cooldown[OtherActor];
+				UE_LOG(LogTemp, Log, TEXT("3: %f"), time);
+
+				if (time >= GetWorld()->GetTimeSeconds())
+				{
+					UE_LOG(LogTemp, Log, TEXT("4: failed"));
+					return;
+				}
+
+				Cooldown[OtherActor] = portalTime;
+			}
+			else
+				Cooldown.Add(OtherActor, portalTime);
+
+			UE_LOG(LogTemp, Log, TEXT("6: Adding time (%f) %f"), portalTime, GetWorld()->GetTimeSeconds());
+		}
+
+		OtherActor->TeleportTo(LinkedPortal->TeleportPoint->GetComponentLocation(), LinkedPortal->TeleportPoint->GetComponentRotation());
 	}
 }
 

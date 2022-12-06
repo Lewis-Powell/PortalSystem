@@ -19,6 +19,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	TMap<AActor*, float> Cooldown;
+
 
 public:	
 	// Called every frame
@@ -32,6 +34,14 @@ public:
 
 	UFUNCTION()
 		void SetConnectedPortal(APortal* PortalToConnect);
+
+	UFUNCTION()
+		void OnCollision(UPrimitiveComponent* OverlappedComponent, 
+			AActor* OtherActor, 
+			UPrimitiveComponent* OtherComp, 
+			int32 OtherBodyIndex, 
+			bool bFromSweep, 
+			const FHitResult& SweepResult);
 	
 	
 	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
@@ -54,6 +64,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		UStaticMeshComponent* OuterMesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class UBoxComponent* m_BoxCollider;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+		USceneComponent* TeleportPoint;
 private:
 
 	//UProperty Variables
