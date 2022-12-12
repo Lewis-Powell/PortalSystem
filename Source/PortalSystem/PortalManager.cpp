@@ -23,9 +23,11 @@ void APortalManager::BeginPlay()
 void APortalManager::OnPortalDestroyed(AActor* DestroyedActor)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("Destroyed"));
+	//Removes the portal from array when destroyed
 	Portals.Remove((APortal*)DestroyedActor);
 }
 
+//Links two portals to each other
 void APortalManager::LinkPortalBoth(APortal* PortalOne, APortal* PortalTwo)
 {
 	check(PortalOne);
@@ -35,6 +37,7 @@ void APortalManager::LinkPortalBoth(APortal* PortalOne, APortal* PortalTwo)
 	PortalTwo->LinkedPortal = PortalOne;
 }
 
+//Links the second portal to the first
 void APortalManager::LinkPortal(APortal* PortalOne, APortal* PortalTwo)
 {
 	check(PortalOne);
@@ -43,7 +46,7 @@ void APortalManager::LinkPortal(APortal* PortalOne, APortal* PortalTwo)
 	PortalTwo->LinkedPortal = PortalOne;
 }
 
-
+//Adds a portal to teh array
 void APortalManager::AddPortal(APortal* PortalReference)
 {
 	if (PortalReference != nullptr)
@@ -54,6 +57,7 @@ void APortalManager::AddPortal(APortal* PortalReference)
 	}
 }
 
+//Returns reference to the current portal manager, itself
 APortalManager* APortalManager::GetPortalManager()
 {
 	return CurrentPortalManager;
