@@ -46,7 +46,7 @@ void APortalManager::LinkPortal(APortal* PortalOne, APortal* PortalTwo)
 	PortalTwo->LinkedPortal = PortalOne;
 }
 
-//Adds a portal to teh array
+//Adds a portal to the array
 void APortalManager::AddPortal(APortal* PortalReference)
 {
 	if (PortalReference != nullptr)
