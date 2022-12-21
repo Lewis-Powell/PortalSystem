@@ -43,9 +43,6 @@ public:
 			bool bFromSweep, 
 			const FHitResult& SweepResult);
 	
-	
-	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	//	UStaticMeshComponent* OuterMesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UTextureRenderTarget2D* Portal_RT;
@@ -71,13 +68,7 @@ protected:
 		USceneComponent* TeleportPoint;
 private:
 
-	//UProperty Variables
 
-	/*UPROPERTY(EditAnywhere)
-		UStaticMeshComponent* OuterMesh;*/
-	
-	/*UPROPERTY(EditAnywhere)
-		class USceneCaptureComponent2D* CapturePortal;*/
 
 
 	UPROPERTY()

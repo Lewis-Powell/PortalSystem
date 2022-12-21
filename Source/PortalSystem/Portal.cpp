@@ -99,12 +99,12 @@ void APortal::OnCollision(UPrimitiveComponent* OverlappedComponent,
 		{
 			//Gets the time that the actor last passed through the linked portal
 			float time = LinkedPortal->Cooldown[OtherActor];
-			UE_LOG(LogTemp, Log, TEXT("1: %f"), time);
+			//UE_LOG(LogTemp, Log, TEXT("1: %f"), time);
 
 			//if the actor hasn't waited long enough to go back through the portal
 			if (time >= GetWorld()->GetTimeSeconds())
 			{
-				UE_LOG(LogTemp, Log, TEXT("2: failed"));
+				//UE_LOG(LogTemp, Log, TEXT("2: failed"));
 				return; 
 			}
 			// Calculates the new time that the actor has to wait before going through another portal.
@@ -117,7 +117,7 @@ void APortal::OnCollision(UPrimitiveComponent* OverlappedComponent,
 			else
 				Cooldown.Add(OtherActor, portalTime);
 
-			UE_LOG(LogTemp, Log, TEXT("5: Adding time (%f) %f"), portalTime, GetWorld()->GetTimeSeconds());
+			//UE_LOG(LogTemp, Log, TEXT("5: Adding time (%f) %f"), portalTime, GetWorld()->GetTimeSeconds());
 		}
 		else 
 		{
@@ -129,12 +129,12 @@ void APortal::OnCollision(UPrimitiveComponent* OverlappedComponent,
 			{
 				
 				float time = Cooldown[OtherActor];
-				UE_LOG(LogTemp, Log, TEXT("3: %f"), time);
+				//UE_LOG(LogTemp, Log, TEXT("3: %f"), time);
 
 				//If the time is greater than or equal to the current time in the world it returns from the function
 				if (time >= GetWorld()->GetTimeSeconds())
 				{
-					UE_LOG(LogTemp, Log, TEXT("4: failed"));
+					//UE_LOG(LogTemp, Log, TEXT("4: failed"));
 					return;
 				}
 				//Update this portal's cooldown map with the new time.
@@ -144,7 +144,7 @@ void APortal::OnCollision(UPrimitiveComponent* OverlappedComponent,
 			else
 				Cooldown.Add(OtherActor, portalTime);
 
-			UE_LOG(LogTemp, Log, TEXT("6: Adding time (%f) %f"), portalTime, GetWorld()->GetTimeSeconds());
+			//UE_LOG(LogTemp, Log, TEXT("6: Adding time (%f) %f"), portalTime, GetWorld()->GetTimeSeconds());
 		}
 
 		//Teleport the actor that collided with this portal to the linked portal's teleport point.
